@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>JS выравниватель приставке год года лет</title>
+
+</head>
+
+<body>
+
+    <script>
+        var age = prompt("Сколько вам лет?", '');
+
+        if (age % 100 != 11 && age % 10 == 1) {
+            console.log('вам ' + age + ' год');
+            alert('вам ' + age + ' год');
+        } else if (age % 10 > 1 && age % 10 < 5 && (age % 100 < 5 || age % 100 > 21)) {
+            console.log('вам ' + age + ' года');
+            alert('вам ' + age + ' года');
+        } else {
+            console.log('вам ' + age + ' лет');
+            alert('вам ' + age + ' лет');
+        }
+    </script>
+
+</body>
+
+
+</html>
