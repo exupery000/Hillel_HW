@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>JS выравниватель приставке год года лет</title>
+
+</head>
+
+<body>
+
+    <script>
+        var triangleHeight = prompt("Укажите высоту треугольника"); // <-- для IE
+
+        //var triangleHeight = 10;
+        if (triangleHeight > 0 && triangleHeight <= 50) {
+
+            console.log('Первый треугольник.');
+            console.log('Треугольник отрисован при помощи одинарного цикла');
+            console.log('Меньше лишних итераций. Выше скорость выполнения');
+            alert(
+                'Первый треугольник.\nТреугольник отрисован при помощи одинарного цикла\nМеньше лишних итераций. Выше скорость выполнения'
+            );
+            var triangleFullDrawing = '';
+            var triangleDrawing = '';
+
+            for (var i = 1; i <= triangleHeight; i++) {
+                triangleDrawing += '*';
+                triangleFullDrawing += triangleDrawing + ('\n');
+            }
+            console.log(triangleFullDrawing);
+            //alert(triangleFullDrawing);
+            //
+            //
+            //
+            console.log('\n');
+            console.log('\n');
+            console.log('Второй треугольник.');
+            console.log('Треугольник отрисован при помощи вложенного цикла');
+            console.log('Итерации выполняются для каждого уровня');
+            console.log('Ниже скорость. Более универсальный и гибкий');
+            alert(
+                'Второй треугольник.\nТреугольник отрисован при помощи вложенного цикла\nИтерации выполняются для каждого уровня\nНиже скорость. Более универсальный и гибкий'
+            );
+            var triangleFullDrawing = '';
+
+            for (var i = 0; i < triangleHeight; i++) {
+                var triangleDrawing = '';
+                for (var k = 0; k <= i; k++) {
+                    triangleDrawing += '*';
+                }
+                //console.log(triangleDrawing);
+                triangleFullDrawing += triangleDrawing + ('\n');
+                //console.log(triangleFullDrawing);
+            }
+            console.log(triangleFullDrawing);
+            //alert(triangleFullDrawing);
+            //
+            //
+            //
+
+        } else if (triangleHeight > 50) {
+            console.log('Слишком большая высота треугольника!');
+            console.log('Возникли затруднения с отображением!');
+            alert('Слишком большая высота треугольника!\nВозникли затруднения с отображением!');
+        } else if (triangleHeight == null) {
+            console.log('Ошибка при вводе данных!');
+            alert('Ошибка при вводе данных!');
+        } else {
+            console.log('Треугольник не может быть отрицательной или нулевой высоты!');
+            console.log('Проверьте правильность ввода данных!');
+            alert('Треугольник не может быть отрицательной или нулевой высоты!\nПроверьте правильность ввода данных!');
+        }
+    </script>
+
+</body>
+
+
+</html>
