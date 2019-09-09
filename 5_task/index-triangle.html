@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>JS треугольник</title>
+
+</head>
+
+<body>
+
+    <script>
+        // Привет. Вам нужно оформить ваше прошлое задание в виде функции, которая умеет принимать аргументы, первый - высота треугольника, второй - из каких символов он будет состоять, но нужна проверка, что ввели не больше одного символа
+
+
+
+        function drawingTriangle(triangleHeight, triangleSymbol) {
+
+            if (triangleSymbol.length > 1) {
+                console.log('Введите не более одного знака для отрисовки!');
+
+            } else {
+                if (triangleHeight > 1 && triangleHeight <= 50) {
+
+                    console.log('Треугольник.');
+
+
+                    var triangleFullDrawing = '';
+                    var triangleDrawing = '';
+
+                    for (var i = 1; i <= triangleHeight; i++) {
+                        triangleDrawing += triangleSymbol;
+                        triangleFullDrawing += triangleDrawing + ('\n');
+                    }
+
+                    return triangleFullDrawing;
+                } else if (triangleHeight > 50) {
+                    console.log('Слишком большая высота треугольника!');
+                    console.log('Возникли затруднения с отображением!');
+                } else if (triangleHeight == null) {
+                    console.log('Ошибка при вводе данных!');
+                    alert('Ошибка при вводе данных!');
+                } else if (isNaN(triangleHeight)) {
+                    console.log('Для задания высоты треугольника, используйте только цифры.');
+                } else {
+                    console.log('Треугольник не может быть отрицательной или нулевой высоты!');
+                    console.log('Проверьте правильность ввода данных!');
+                }
+            }
+        }
+
+        let height = prompt('Укажите высоту треугольника', 10);
+        let symbol = prompt('Укажите символ, из которого будет состоять ваш треугольник', '*');
+
+
+        console.log(drawingTriangle(height, symbol));
+    </script>
+
+</body>
+
+
+</html>
