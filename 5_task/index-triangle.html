@@ -13,39 +13,33 @@
     <script>
         // Привет. Вам нужно оформить ваше прошлое задание в виде функции, которая умеет принимать аргументы, первый - высота треугольника, второй - из каких символов он будет состоять, но нужна проверка, что ввели не больше одного символа
 
-
-
         function drawingTriangle(triangleHeight, triangleSymbol) {
-
-            if (triangleSymbol.length > 1) {
-                console.log('Введите не более одного знака для отрисовки!');
-
+            if (triangleHeight == null || triangleSymbol == null) {
+                console.log('Ошибка при вводе данных!');
             } else {
-                if (triangleHeight > 1 && triangleHeight <= 50) {
-
-                    console.log('Треугольник.');
-
-
-                    var triangleFullDrawing = '';
-                    var triangleDrawing = '';
-
-                    for (var i = 1; i <= triangleHeight; i++) {
-                        triangleDrawing += triangleSymbol;
-                        triangleFullDrawing += triangleDrawing + ('\n');
-                    }
-
-                    return triangleFullDrawing;
-                } else if (triangleHeight > 50) {
-                    console.log('Слишком большая высота треугольника!');
-                    console.log('Возникли затруднения с отображением!');
-                } else if (triangleHeight == null) {
-                    console.log('Ошибка при вводе данных!');
-                    alert('Ошибка при вводе данных!');
-                } else if (isNaN(triangleHeight)) {
-                    console.log('Для задания высоты треугольника, используйте только цифры.');
+                if (triangleSymbol.length > 1) {
+                    console.log('Введите не более одного знака для отрисовки!');
                 } else {
-                    console.log('Треугольник не может быть отрицательной или нулевой высоты!');
-                    console.log('Проверьте правильность ввода данных!');
+                    if (triangleHeight > 1 && triangleHeight <= 50) {
+                        console.log('Треугольник.');
+                        let triangleFullDrawing = '';
+                        let triangleDrawing = '';
+
+                        for (var i = 1; i <= triangleHeight; i++) {
+                            triangleDrawing += triangleSymbol;
+                            triangleFullDrawing += triangleDrawing + ('\n');
+                        }
+                        return triangleFullDrawing;
+
+                    } else if (triangleHeight > 50) {
+                        console.log('Слишком большая высота треугольника!');
+                        console.log('Возникли затруднения с отображением!');
+                    } else if (isNaN(triangleHeight)) {
+                        console.log('Для задания высоты треугольника, используйте только цифры.');
+                    } else {
+                        console.log('Треугольник не может быть отрицательной или нулевой высоты!');
+                        console.log('Проверьте правильность ввода данных!');
+                    }
                 }
             }
         }
