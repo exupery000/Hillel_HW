@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>JS Функции</title>
+
+</head>
+
+<body>
+
+    <script>
+        // function f (a, b, c) {
+        // function sum (a, b) {
+        // return a + b;
+        // }
+        // }
+        // Перепишите её следующим образом:
+        // 1. Если аргументы a и b не переданы, они равны по умолчанию 2 и 3 соответсвенно.
+        // 2. Если аргумент c передан и он является функцией, то он выполняется вместо вызова функции sum.
+        // 3. Функция f должна возвращать результат функции аргумента c, если он есть, либо результат функции sum.
+
+
+
+        function f(a = 2, b = 3, c) {
+            if ((typeof c) === "function") {
+                return c();
+            } else {
+                function sum(a, b) {
+                    return a + b;
+                }
+                return sum(a, b);
+            }
+        }
+
+
+
+        // Проверка
+        function someOtherFunk() {
+            return 'some text';
+        }
+        console.log(f(10, 20, someOtherFunk));
+    </script>
+
+</body>
+
+
+</html>
