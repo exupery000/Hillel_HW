@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>JS Функции</title>
+
+</head>
+
+<body>
+
+    <script>
+        //дз
+        /* функция padString (myString, resultLenght, symbol, side = 0)
+        padString('ivan', 8, '*', true) // ****ivan | ivan**** */
+
+
+        function padString(myString, resultLenght, symbol, side) {
+
+            // КЛАСИЧЕСКАЯ РУЧНАЯ ПРОВЕРКА
+            // Для активации ручной проверки, закоментируйте, пожалуйста
+            // Пользовательскую проверку
+            myString = 'Ivan';
+            resultLenght = 8;
+            symbol = '*';
+            side = true;
+
+            // ПРОВЕРКА НЕПОСТРЕДСТВЕННО ПРИ ПОМОЩИ ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА
+            // Активирована по умолчанию
+            myString = prompt("Введите имя пользователя", '');
+            resultLenght = prompt("Введите длину результирующей строки", '');
+            symbol = prompt("Введите добавочный символ", '');
+            side = confirm('Активировать постпрефиксное добавление символов?');
+
+
+
+
+            if (!isNaN(myString)) {
+                console.log('Ошибка! Имя должно быть строкой!')
+            } else if (isNaN(resultLenght)) {
+                console.log('Ошибка! Результирующая длина должна быть числом!')
+            } else if (symbol.length > 1) {
+                console.log('Ошибка! Дополняющий символ должен быть только один!')
+
+                // сравним длины строки и результирующей
+                // предварительно обрезав лишние пробелы
+            } else if ((myString.trim()).length >= resultLenght) {
+                console.log('Длина строки равна или меньше результирующей длины!');
+                return myString;
+            } else {
+                // обрежим лишние пробелы
+                myString = myString.trim();
+                let lengthDifference = resultLenght - myString.length;
+                let symbolString = '';
+                for (let i = 0; i < (lengthDifference); i++) {
+                    symbolString += symbol;
+                }
+
+
+                if (side === true) {
+                    myString += symbolString;
+                } else {
+                    myString = symbolString + myString;
+                }
+                return myString;
+            }
+        }
+
+        //ручная проверка, если внутренние проверки закоментированы
+        //console.log(padString('IvanGo', 15, '!', true));
+
+
+        //класический запуск функции
+        //раскоментировать все внутренние проверки
+        console.log(padString());
+
+
+
+    </script>
+
+</body>
+
+
+</html>
