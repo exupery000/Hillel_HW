@@ -31,26 +31,20 @@
 
         // 1. Сумму всех элементов массива находим при помощи метода .forEach
         let sumOfArrayElement = 0;
-        arr.forEach((item) => {
-            sumOfArrayElement += item;
-        });
+        arr.forEach((item) => sumOfArrayElement += item);
         console.log('Сумма всех элементов массива:', sumOfArrayElement);
         console.log('*******************');
 
 
         // 2. Отфильтруем массив и соберем в новый все отрицательные элементы
-        let negativeArr = arr.filter((number) => {
-            return number < 0;
-        });
+        let negativeArr = arr.filter((number) => number < 0);
         console.log('Массив из отрицательных элементов:', negativeArr);
         console.log('*******************');
 
 
         // 3. Поделить все элементы старого массива на n и записать в новый
         let n = 2;
-        let modifiedArr = arr.map((element) => {
-            return element / n;
-        });
+        let modifiedArr = arr.map((element) => element / n);
         console.log('Массив из обработанных элементов:', modifiedArr);
         console.log('*******************');
 
@@ -67,9 +61,7 @@
         //console.log(arr);
         //console.log('Массив из обработанных элементов:', newModifiedArr);
         let sumOfModifiedArray = 0;
-        newModifiedArr.forEach((item) => {
-            sumOfModifiedArray += item;
-        });
+        newModifiedArr.forEach((item) => sumOfModifiedArray += item);
         console.log('Сумма всех элементов переработанного массива:', sumOfModifiedArray);
         console.log('*******************');
     </script>
