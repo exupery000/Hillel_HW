@@ -166,10 +166,10 @@ newArray11_1 = newArray11_1.sort((a, b) => {
 let maxElement11 = newArray11_1[0];
 //console.log('макс элемент ', maxElement11);
 let newArray11 = [...array];
-newArray11.map((element, index) => {
+newArray11 = newArray11.map((element, index) => {
     if (element !== maxElement11) {
         //console.log(element, index);
-        delete newArray11[index];
+        return 0;
     } else {
         return maxElement11;
     }
@@ -182,7 +182,7 @@ console.log(`***************`);
 
 
 //12.Взять еще один массив и вычислить разность соответствующих элементов массивов и записать в новый массив
-let array2 = [46,4,-51,27,-63,4,-54,76,-4,12,-35,4,47,16,-37,54,-4,72,-56,47,4,-16,25,-37];
+let array2 = [46, 4, -51, 27, -63, 4, -54, 76, -4, 12, -35, 4, 47, 16, -37, 54, -4, 72, -56, 47, 4, -16, 25, -37];
 
 //console.log(array.length);
 //console.log(array2.length);
