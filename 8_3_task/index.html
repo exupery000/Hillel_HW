@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- Рекурсия
+Поработаем с числовым палиндромом) Числовой палиндром — это натуральное число, которое читается слева направо и справа налево одинаково. Иначе говоря, отличается симметрией записи (расположения цифр), причём число знаков может быть как чётным, так и нечётным.
+
+
+
+Но
+
+
+
+Палиндром можно получить как результат операций над другими числами. Возьмём любое натуральное число и сложим его с обращённым числом, то есть записанным теми же цифрами, но в обратном порядке. Проделаем то же действие с получившейся суммой и будем повторять его до тех пор, пока не образуется палиндром. Иногда достаточно сделать всего один шаг (например, 312 + 213 = 525), но, как правило, требуется не менее двух. Скажем, число 96 порождает палиндром 4884 только на четвёртом шаге.... -->
+
+    <script>
+        // let baseNumber = 312;
+        // //baseNumber = baseNumber + Number(baseNumber.toString());
+        // console.log(baseNumber);
+        // baseNumber = baseNumber.toString().split('');
+        // console.log(baseNumber);
+        // baseNumber = baseNumber.reverse();
+        // console.log(baseNumber);
+        // baseNumber = baseNumber.join('');
+        // console.log(baseNumber);
+        // baseNumber = Number(baseNumber);
+        // console.log(baseNumber);
+
+        // Функция разворота числа
+        function reverse(element) {
+            let result = Number(
+                element
+                .toString()
+                .split("")
+                .reverse()
+                .join("")
+            );
+            return result;
+        }
+
+        // Функция проверки
+        function isPalyndrom(elementForCheck) {
+            if (elementForCheck === reverse(elementForCheck)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        // Функция поиска палиндрома
+        function findPalyndrom(element) {
+            if (isPalyndrom(element) !== true) {
+                let newElement = element + reverse(element);
+                iterationNumber++;
+                return findPalyndrom(newElement);
+            } else {
+                return element;
+            }
+        }
+
+        // Внешняя переменная - счетчик итераций
+        let iterationNumber = 0;
+
+        // Число которое будет проверяться на палиндром
+        let myNumber = 96;
+
+        console.log(
+            `для числа ${myNumber} палиндромом является ${findPalyndrom(
+          myNumber
+        )} колличество итераций ${iterationNumber}`
+        );
+    </script>
+</body>
+
+</html>
