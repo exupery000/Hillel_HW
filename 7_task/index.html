@@ -1,71 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
-    <script>
-        // Тренируем методы массивов
-        // 1. Внимание, это задание нужно выполнить используя методы массива (никаких for)
-
-        // Дан массив:
-
-        // var arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
-
-
-        // 1) найти сумму элементов массива
-
-        // 2) получить массив который состоит из отрицательных элементов из исходного массива
-
-        // 3) получить массив из элементов деленных на два (например, если был массив [4, 3, 8] то получим [2,1.5,4])
-
-        // 4) найти результат суммирования элементов массива, но в случае, если элемент отрицательный - делим его на 2, а в случае, когда положительный - умножаем на 2.
-
-        var arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
-
-
-        // 1. Сумму всех элементов массива находим при помощи метода .forEach
-        let sumOfArrayElement = 0;
-        arr.forEach((item) => sumOfArrayElement += item);
-        console.log('Сумма всех элементов массива:', sumOfArrayElement);
-        console.log('*******************');
-
-
-        // 2. Отфильтруем массив и соберем в новый все отрицательные элементы
-        let negativeArr = arr.filter((number) => number < 0);
-        console.log('Массив из отрицательных элементов:', negativeArr);
-        console.log('*******************');
-
-
-        // 3. Поделить все элементы старого массива на n и записать в новый
-        let n = 2;
-        let modifiedArr = arr.map((element) => element / n);
-        console.log('Массив из обработанных элементов:', modifiedArr);
-        console.log('*******************');
-
-
-        // 4. Сумма всех элементов массива при определенных условиях
-        // если элемент отрицательный - делим его на 2
-        // если положительный - умножаем на 2
-        let elemModifierDivide = 2; //если элемент отрицательный
-        let elemModifierMult = 2; //если элемент положительный
-        let newModifiedArr = arr.map((element) => {
-            if (element < 0) return (element / elemModifierDivide);
-            if (element > 0) return (element * elemModifierMult);
-        });
-        //console.log(arr);
-        //console.log('Массив из обработанных элементов:', newModifiedArr);
-        let sumOfModifiedArray = 0;
-        newModifiedArr.forEach((item) => sumOfModifiedArray += item);
-        console.log('Сумма всех элементов переработанного массива:', sumOfModifiedArray);
-        console.log('*******************');
-    </script>
-
+    <script src="app.js"></script>
+    
 </body>
-
 </html>

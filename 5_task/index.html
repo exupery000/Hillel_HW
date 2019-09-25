@@ -11,36 +11,72 @@
 <body>
 
     <script>
-        // function f (a, b, c) {
-        // function sum (a, b) {
-        // return a + b;
-        // }
-        // }
-        // Перепишите её следующим образом:
-        // 1. Если аргументы a и b не переданы, они равны по умолчанию 2 и 3 соответсвенно.
-        // 2. Если аргумент c передан и он является функцией, то он выполняется вместо вызова функции sum.
-        // 3. Функция f должна возвращать результат функции аргумента c, если он есть, либо результат функции sum.
+        //дз
+        /* функция padString (myString, resultLenght, symbol, side = 0)
+        padString('ivan', 8, '*', true) // ****ivan | ivan**** */
+
+
+        function padString(myString, resultLenght, symbol, side) {
+
+            // КЛАСИЧЕСКАЯ РУЧНАЯ ПРОВЕРКА
+            // Для активации ручной проверки, закоментируйте, пожалуйста
+            // Пользовательскую проверку
+            myString = 'Ivan';
+            resultLenght = 8;
+            symbol = '*';
+            side = true;
+
+            // ПРОВЕРКА НЕПОСТРЕДСТВЕННО ПРИ ПОМОЩИ ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА
+            // Активирована по умолчанию
+            myString = prompt("Введите имя пользователя", '');
+            resultLenght = prompt("Введите длину результирующей строки", '');
+            symbol = prompt("Введите добавочный символ", '');
+            side = confirm('Активировать постпрефиксное добавление символов?');
 
 
 
-        function f(a = 2, b = 3, c) {
-            if ((typeof c) === "function") {
-                return c();
+
+            if (!isNaN(myString)) {
+                console.log('Ошибка! Имя должно быть строкой!')
+            } else if (isNaN(resultLenght)) {
+                console.log('Ошибка! Результирующая длина должна быть числом!')
+            } else if (symbol.length > 1) {
+                console.log('Ошибка! Дополняющий символ должен быть только один!')
+
+                // сравним длины строки и результирующей
+                // предварительно обрезав лишние пробелы
+            } else if ((myString.trim()).length >= resultLenght) {
+                console.log('Длина строки равна или меньше результирующей длины!');
+                return myString;
             } else {
-                function sum(a, b) {
-                    return a + b;
+                // обрежим лишние пробелы
+                myString = myString.trim();
+                let lengthDifference = resultLenght - myString.length;
+                let symbolString = '';
+                for (let i = 0; i < (lengthDifference); i++) {
+                    symbolString += symbol;
                 }
-                return sum(a, b);
+
+
+                if (side === true) {
+                    myString += symbolString;
+                } else {
+                    myString = symbolString + myString;
+                }
+                return myString;
             }
         }
 
+        //ручная проверка, если внутренние проверки закоментированы
+        //console.log(padString('IvanGo', 15, '!', true));
 
 
-        // Проверка
-        function someOtherFunk() {
-            return 'some text';
-        }
-        console.log(f(10, 20, someOtherFunk));
+        //класический запуск функции
+        //раскоментировать все внутренние проверки
+        console.log(padString());
+
+
+
     </script>
 
 </body>

@@ -1,85 +1,71 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>JS Функции</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
 
 <body>
-
     <script>
-        //дз
-        /* функция padString (myString, resultLenght, symbol, side = 0)
-        padString('ivan', 8, '*', true) // ****ivan | ivan**** */
+        // Тренируем методы массивов
+        // 1. Внимание, это задание нужно выполнить используя методы массива (никаких for)
+
+        // Дан массив:
+
+        // var arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
 
 
-        function padString(myString, resultLenght, symbol, side) {
+        // 1) найти сумму элементов массива
 
-            // КЛАСИЧЕСКАЯ РУЧНАЯ ПРОВЕРКА
-            // Для активации ручной проверки, закоментируйте, пожалуйста
-            // Пользовательскую проверку
-            myString = 'Ivan';
-            resultLenght = 8;
-            symbol = '*';
-            side = true;
+        // 2) получить массив который состоит из отрицательных элементов из исходного массива
 
-            // ПРОВЕРКА НЕПОСТРЕДСТВЕННО ПРИ ПОМОЩИ ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА
-            // Активирована по умолчанию
-            myString = prompt("Введите имя пользователя", '');
-            resultLenght = prompt("Введите длину результирующей строки", '');
-            symbol = prompt("Введите добавочный символ", '');
-            side = confirm('Активировать постпрефиксное добавление символов?');
+        // 3) получить массив из элементов деленных на два (например, если был массив [4, 3, 8] то получим [2,1.5,4])
+
+        // 4) найти результат суммирования элементов массива, но в случае, если элемент отрицательный - делим его на 2, а в случае, когда положительный - умножаем на 2.
+
+        var arr = [-246, 753, -468, 475, -683, 476, -583, 746, -581];
 
 
+        // 1. Сумму всех элементов массива находим при помощи метода .forEach
+        let sumOfArrayElement = 0;
+        arr.forEach((item) => sumOfArrayElement += item);
+        console.log('Сумма всех элементов массива:', sumOfArrayElement);
+        console.log('*******************');
 
 
-            if (!isNaN(myString)) {
-                console.log('Ошибка! Имя должно быть строкой!')
-            } else if (isNaN(resultLenght)) {
-                console.log('Ошибка! Результирующая длина должна быть числом!')
-            } else if (symbol.length > 1) {
-                console.log('Ошибка! Дополняющий символ должен быть только один!')
-
-                // сравним длины строки и результирующей
-                // предварительно обрезав лишние пробелы
-            } else if ((myString.trim()).length >= resultLenght) {
-                console.log('Длина строки равна или меньше результирующей длины!');
-                return myString;
-            } else {
-                // обрежим лишние пробелы
-                myString = myString.trim();
-                let lengthDifference = resultLenght - myString.length;
-                let symbolString = '';
-                for (let i = 0; i < (lengthDifference); i++) {
-                    symbolString += symbol;
-                }
+        // 2. Отфильтруем массив и соберем в новый все отрицательные элементы
+        let negativeArr = arr.filter((number) => number < 0);
+        console.log('Массив из отрицательных элементов:', negativeArr);
+        console.log('*******************');
 
 
-                if (side === true) {
-                    myString += symbolString;
-                } else {
-                    myString = symbolString + myString;
-                }
-                return myString;
-            }
-        }
-
-        //ручная проверка, если внутренние проверки закоментированы
-        //console.log(padString('IvanGo', 15, '!', true));
+        // 3. Поделить все элементы старого массива на n и записать в новый
+        let n = 2;
+        let modifiedArr = arr.map((element) => element / n);
+        console.log('Массив из обработанных элементов:', modifiedArr);
+        console.log('*******************');
 
 
-        //класический запуск функции
-        //раскоментировать все внутренние проверки
-        console.log(padString());
-
-
-
+        // 4. Сумма всех элементов массива при определенных условиях
+        // если элемент отрицательный - делим его на 2
+        // если положительный - умножаем на 2
+        let elemModifierDivide = 2; //если элемент отрицательный
+        let elemModifierMult = 2; //если элемент положительный
+        let newModifiedArr = arr.map((element) => {
+            if (element < 0) return (element / elemModifierDivide);
+            if (element > 0) return (element * elemModifierMult);
+        });
+        //console.log(arr);
+        //console.log('Массив из обработанных элементов:', newModifiedArr);
+        let sumOfModifiedArray = 0;
+        newModifiedArr.forEach((item) => sumOfModifiedArray += item);
+        console.log('Сумма всех элементов переработанного массива:', sumOfModifiedArray);
+        console.log('*******************');
     </script>
 
 </body>
-
 
 </html>
