@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Hello, World</title>
+
+</head>
+
+<body>
+
+    <script>
+        var userAge = 200;
+        console.log(userAge % 100);
+        console.log(userAge % 10);
+
+
+        if (userAge % 100 > 4 && userAge % 100 < 21 || userAge % 10 == 0) {
+            console.log('Пользователю ' + userAge + ' лет');
+        } else if (userAge % 10 == 1) {
+            console.log('Пользователю ' + userAge + ' год');
+        } else if (userAge % 10 > 1 && userAge % 10 < 5) {
+            console.log('Пользователю ' + userAge + ' года');
+        }
+    </script>
+
+</body>
+
+
+</html>
