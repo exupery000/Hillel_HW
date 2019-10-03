@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*Возьмите счетчик, который мы писали в классе и добавьте ему возможность задавать начальное значение и шаг счетчика и отчистку.*/
+
+        console.log(`*******`);
+        console.log(`задание на замыкание, продвинутое`);
+        
+        let setCounter = (startPoint, step) => {
+            let initialCounter = startPoint;
+            return ((element) => {
+                initialCounter += step;
+                if (element === 'reset') {
+                    initialCounter = startPoint;
+                    console.log(`RESET`);
+                }
+                return initialCounter
+            });
+        }
+
+        const newCounter = setCounter(10, 2);
+        console.log(newCounter());
+        console.log(newCounter());
+        console.log(newCounter());
+        console.log(newCounter('reset'));
+        console.log(newCounter());
+        console.log(newCounter());
+        console.log(newCounter());
+        console.log(newCounter());
+        console.log(newCounter('reset'));
+        console.log(newCounter());
+        console.log(newCounter());
+
+
+
+
+    </script>
+
+</body>
+
+</html>

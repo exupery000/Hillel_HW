@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*Замыкания
+        Вам нужно, написать функцию, которая принимает 1 параметр. При первом вызове, она его запоминает, при втором — суммирует переданый параметр с тем, что передали первый раз и тд. Всё это с замыканиями, например: 
+        sum(3) = 3 
+        sum(5) = 8 
+        sum(20) = 28 */
+
+
+        console.log(`*******`);
+        console.log(`задание на замыкание`);
+
+        let sum = () => {
+            let sum = 0;
+            return (element) => { // вернем безымянную ф-ю с параметром element
+                console.log(`добавим элемент ${element} к прошлой сумме ${sum}`);
+                sum += element; // прибавим к внешней переменной sum наш element
+                return sum;
+            }
+        }
+
+        let newSum = sum();
+        console.log(newSum(0));
+        console.log(newSum(0));
+        console.log(newSum(0));
+        console.log(newSum(5));
+        console.log(newSum(10));
+        console.log(newSum(15));
+        console.log(newSum(100));
+        console.log(newSum(5));
+        console.log(newSum(0));
+        console.log(newSum(0));
+        console.log(newSum(100));
+    </script>
+
+</body>
+
+</html>
