@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        Домашнее задание 11
+        Добавлено: 06.10.2019 18:55
+        Задание
+        Привет. Вам нужно написать функцию, которая сравнивает 2 массива из простых элементов. Элементы могут быть в произвольном порядке. Если длина массивов разная, то берем длину меньшего.
+        */
+
+        console.log('***');
+
+        const array1 = [1, 2, 3, 3, 4, 3, 4, 5, 3, 4, 5, 6, 7, 8, 9];
+        const array2 = [3, 4, 5, 6];
+        const array3 = [6, 4, 5, 6];
+
+
+
+
+
+        let arrDiffFunk = (arr1, arr2) => {
+            let longArr1 = arr1.length;
+            let longArr2 = arr2.length;
+            let resultOfLengths = (arr1.length === arr2.length);
+            let maxLength;
+            let result;
+            let biggestArr;
+            let smallestArr;
+            let indexOfEqual = 0;
+
+            // let a = 2 + 2;
+
+            // switch (a) {
+            //     case 3:
+            //         alert('Маловато');
+            //         break;
+            //     case 4:
+            //         alert('В точку!');
+            //         break;
+            //     case 5:
+            //         alert('Перебор');
+            //         break;
+            //     default:
+            //         alert("Нет таких значений");
+            // }
+
+
+
+            if (longArr1 === longArr2) {
+                console.log(`длины одинаковы и равны ${maxLength = longArr1}`);
+                biggestArr = arr1;
+                smallestArr = arr2;
+            } else if (longArr1 > longArr2) {
+                maxLength = longArr1;
+
+                biggestArr = arr1;
+                smallestArr = arr2;
+                //arr1 = arr1.slice(0, maxLength);
+                //console.log(`первый массив длиннее и равен ${maxLength}`)
+            } else {
+                maxLength = longArr2;
+
+                biggestArr = arr2;
+                smallestArr = arr1;
+                //arr2 = arr2.slice(0, maxLength);
+                //console.log(`второй массив длиннее, и равен ${maxLength}`)
+            }
+
+            //console.log(arr1);
+            //console.log(arr2);
+
+            console.log(`первый массив до обработки \n${biggestArr}`);
+            console.log(`второй массив до обработки \n${smallestArr}`);
+
+            console.log(`выясним, все ли элементы есть в двух массивах не взирая на последовательность`);
+
+            if (arrayIncludes(biggestArr, smallestArr) === false) {
+                console.log(`элементы первого массива не в полной мере присутствуют во втором`);
+                return false;
+            } else {
+                console.log(`элементы присутствуют? ${arrayIncludes(biggestArr, smallestArr)}`);
+                console.log(`двигаемся дальше и ищем точку входа и последовательность`);
+                console.log(`**************`);
+            }
+
+            //console.log(arrayIncludes(biggestArr, smallestArr));
+            //console.log(arrayIncludes(smallestArr, biggestArr));
+
+
+
+
+            //*********************************************************
+            //функция проверки есть ли элементы одного массива в другом
+            //*********************************************************
+            function arrayIncludes(array1, array2) {
+                //console.log(`выясним, все ли элементы есть в двух массивах не взирая на последовательность`);
+                let differenceIncludes = array2.map(element => array1.includes(element));
+                //console.log(differenceIncludes);
+                let resultOfinnerDifferFunk = differenceIncludes.every(isTrue);
+                //console.log(`элементы присутствуют? ${resultOfinnerDifferFunk}`);
+                return resultOfinnerDifferFunk;
+            }
+
+            //*************************************
+            //функция проверки все ли элементы TRUE
+            //*************************************
+            function isTrue(elem) {
+                return elem === true;
+            }
+
+
+            //функция проверки присутствую ли элементы в массиве в правильном порядке
+            function innerDifferFunk(biggestArr, smallestArr) {
+                //console.log(smallestArr);
+                //console.log(biggestArr);
+                //console.log(`выясним, все ли элементы есть в двух массивах не взирая на последовательность`);
+                differenceIncludes = arrayIncludes(biggestArr, smallestArr);
+                //console.log(differenceIncludes);
+                let arrDiff = smallestArr.map((elem, index) => {
+                    if (elem === biggestArr[index]) {
+                        return true
+                    } else {
+                        return false
+                    }
+                });
+                console.log(`результат сравнения последовательности \n${arrDiff}`);
+                let resultOfinnerDifferFunk = arrDiff.every(isTrue);
+                //console.log(`элементы одинаковы? ${resultOfinnerDifferFunk}`);
+
+                //введем переменную для уменьшения длины массива и сравнения
+                let tempBiggestArr = biggestArr.slice(1);
+                
+                if (smallestArr.length >= biggestArr.length && resultOfinnerDifferFunk === false) {
+                    return false;
+                } else if (resultOfinnerDifferFunk === false) {
+                    indexOfEqual++;
+                    return innerDifferFunk(tempBiggestArr, smallestArr);
+                } else {
+                    return true;
+                }
+            }
+
+            result = innerDifferFunk(biggestArr, smallestArr);
+            if (result === true) {
+                console.log(`массив ${smallestArr} \nприсутствует в массиве \n${biggestArr} \nпоследовательность совпадает начиная с индекса ${indexOfEqual}`);
+                return true
+            } else {
+                console.log(`массивы разные!`);
+                return false
+            }
+        }
+
+
+        console.log(arrDiffFunk(array1, array2));
+    </script>
+
+</body>
+
+</html>
