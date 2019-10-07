@@ -117,8 +117,9 @@
                 return elem === true;
             }
 
-
+            //***********************************************************************
             //функция проверки присутствую ли элементы в массиве в правильном порядке
+            //***********************************************************************
             function innerDifferFunk(biggestArr, smallestArr) {
                 //console.log(smallestArr);
                 //console.log(biggestArr);
@@ -138,7 +139,7 @@
 
                 //введем переменную для уменьшения длины массива и сравнения
                 let tempBiggestArr = biggestArr.slice(1);
-                
+
                 if (smallestArr.length >= biggestArr.length && resultOfinnerDifferFunk === false) {
                     return false;
                 } else if (resultOfinnerDifferFunk === false) {
@@ -151,7 +152,9 @@
 
             result = innerDifferFunk(biggestArr, smallestArr);
             if (result === true) {
-                console.log(`массив ${smallestArr} \nприсутствует в массиве \n${biggestArr} \nпоследовательность совпадает начиная с индекса ${indexOfEqual}`);
+                console.log(
+                    `массив ${smallestArr} \nприсутствует в массиве \n${biggestArr} \nпоследовательность совпадает \nначиная с индекса ${indexOfEqual}`
+                    );
                 return true
             } else {
                 console.log(`массивы разные!`);
