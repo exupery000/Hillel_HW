@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // напишем функцию которая будет брать метод определенного объекта
+        // и применять его к другим объектам
+        // по факту мы напишем свой собственный BIND
+        // BIND позволяет вернуть метод объекта как функцию но не вызывать ёё
+        // например
+        // из условия ниже у нас есть два обхекта
+        // user1 и user2
+        // у первого есть свой метод getFullName
+        // у второго - нет
+        // при помощи BIND мы можем вернуть метод getFullName
+        // и, предположим, присвоить его какойто переменной someFunc
+        // someFunc теперь стала функцией
+        // результатом вызова которой будет user1.getFullName.bind(user2)
+        // let someFunk = user1.getFullName.bind(user2);
+        // вызывая someFunc() мы получим метод объекта user1, с контекстом вызова user2
+        // console.log(someFunk());
+
+
+
+        function getFullNameOwn(obj1, obj2) {
+            //call позволяет вызвать функцию с четко заданным контекстом
+            //т.е. call перепривязывает контекст
+            //мы вызываем функцию у obj1, в данном случае это getFullName
+            //и при помощи call привязываем ей другой контекст, в данном случае obj2
+            let result = obj1.getFullName.call(obj2);
+            console.log(result)
+            return result;
+        }
+
+
+
+        const user1 = {
+            name: 'Oleg',
+            surname: 'Petrov',
+            getFullName() {
+                return this.name + ' ' + this.surname;
+            }
+        }
+
+        const user2 = {
+            name: 'Ivan',
+            surname: 'Serov',
+        }
+
+        console.log(user1.getFullName());
+        getFullNameOwn(user1, user2);
+
+
+    </script>
+
+</body>
+
+</html>
