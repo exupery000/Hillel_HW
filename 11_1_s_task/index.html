@@ -58,6 +58,12 @@
         getFullNameOwn(user1, user2);
 
 
+        console.log(`************`);
+        console.log(user1.getFullName.bind(user2)); // результат - вид функции и ее тело
+        // потомучто BIND возвращает саму функцию без ее вызова
+        console.log(user1.getFullName.bind(user2)()); // результат - 'Ivan Serov'
+
+
     </script>
 
 </body>
