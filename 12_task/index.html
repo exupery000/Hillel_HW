@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            Конструкторы
+            Вам нужно сделать конструктор сущности Студент.
+
+            У Студента есть имя, фамилия, год рождения — это свойства.
+            Есть массив с оценками, это тоже свойство.
+            И есть возможность получить возраст студента и его средний бал — это методы.
+            Еще у всех Студентов есть по массиву одинаковой длины, в нем 30 элементов, изначально он не заполнен, но на 30 элементов. Это массив в котором отмечается посещаемость, каждый раз когда мы вызываем метод .present() на очередное пустое место в массив записывается true, когда вызываем .absent() — записывается false.
+            Есть массив с оценками и метод mark(), мы можем передать оценку от 0 до 10.
+
+
+            Предусмотрите какую нибудь защиту от того чтоб в массивах не могло быть более 30 записей. Массив это свойство, present и absent, mark — методы.
+
+
+
+            Ну и последний метод: .summary(), он проверяет среднюю оценку, и среднее посещение, и если средняя оценка больше 9 а среднее посещение больше 0.9, то метод summary, возвращает строку "Ути какой молодчинка!", если одно из этих значений меньше, то — "Норм, но можно лучше", если оба ниже — "Редиска!". Ну и не забудьте после того как напишите замечательный конструктор, создать пару экземпляров(конкретных студентов) и подергать методы.
+    
+            */
+
+
+        const Student = function (name, surname, bday) {
+            this.name = name,
+                this.surname = surname,
+                this.bday = bday,
+                this.arrVisits = [...Array(30)],
+                this.arrMarks = [...Array(30)]
+        };
+
+        Student.prototype.getFullAge = function () {
+            const currentDate = new Date;
+            let fullAge = currentDate.getFullYear() - this.bday;
+            console.log(`Полный возраст студента ${fullAge}`);
+            return fullAge;
+        };
+
+        Student.prototype.getFullName = function () {
+            let fullName = `${this.surname} ${this.name}`;
+            console.log(`Полное имя студента ${fullName}`);
+            return fullName;
+        }
+
+        Student.prototype.present = function () {
+            if (this.arrVisits.includes(undefined) === true) {
+                let index = this.arrVisits.indexOf(undefined);
+                this.arrVisits[index] = true;
+            } else {
+                console.log(`Занятия окончены`);
+            }
+        }
+
+        Student.prototype.absent = function () {
+            if (this.arrVisits.includes(undefined) === true) {
+                let index = this.arrVisits.indexOf(undefined);
+                this.arrVisits[index] = false;
+            } else {
+                console.log(`Занятия окончены`);
+            }
+        }
+
+        Student.prototype.mark = function (markValue) {
+            if (this.arrMarks.includes(undefined) === true) {
+                let index = this.arrMarks.indexOf(undefined);
+                this.arrMarks[index] = markValue;
+            } else {
+                console.log(`Все задания выполнены`);
+            }
+        }
+
+        Student.prototype.summary = function () {
+
+
+            let visitsCounter = 0;
+            let sumOfVisits = 0;
+            sumOfVisits = this.arrVisits.reduce((acumulator, elem) => {
+                if (typeof (elem) === 'boolean') {
+                    visitsCounter++;
+                    acumulator += Number(elem);
+                }
+                return acumulator;
+            }, 0);
+
+            //console.log(visitsCounter);
+            //console.log(sumOfVisits);
+
+            let averagePresents = sumOfVisits / visitsCounter;
+            console.log(`Занятий проведено ${visitsCounter} 
+Средняя посещаемость ${averagePresents}`);
+
+
+            let markCounter = 0;
+            let sumOfmarks = 0;
+            sumOfmarks = this.arrMarks.reduce((acumulator, elem) => {
+                if (typeof (elem) === 'number') {
+                    markCounter++;
+                    acumulator += elem;
+                }
+                return acumulator;
+            }, 0);
+
+            //console.log(markCounter);
+            //console.log(sumOfmarks);
+            let averageMark = sumOfmarks / markCounter;
+            console.log(`Заданий выполнено ${markCounter}
+Средняя оценка ${averageMark}`);
+
+            if (averagePresents > 0.9 && averageMark > 9) {
+                console.log(`Ути какой молодчинка!`);
+            } else if (averagePresents > 0.9 || averageMark > 9) {
+                console.log(`Норм, но можно лучше`);
+            } else {
+                console.log(`Редиска!`);
+            }
+        }
+
+
+
+
+        let student1 = new Student('Ernesto', 'Che Guevara', 1928);
+
+
+        console.log(student1.arrVisits);
+        // проверяем массив посещаемости
+        // это массив на 30 пустых элементов
+
+        console.log(student1.arrMarks);
+        // проверяем массив оценок
+        // это массив на 30 пустых элементов
+
+        student1.getFullAge(); // получаем полное имя
+        student1.getFullName(); // получаем возраст
+
+        // проверяем на присутствие и отсутствие
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        //после этого момента занятия окончены
+        //отмечать присутствие больше нельзя
+        student1.present();
+        student1.present();
+        student1.absent();
+        student1.absent();
+
+        // проверяем на оценки
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(9);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(3);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(5);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(3);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(5);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(9);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(9);
+        // после этого момента все задания выполнены
+        // и выполнены
+        // ставить оценки некуда
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(3);
+
+        // проверяем основной метод успеваемости
+        student1.summary();
+
+        // проверяем массив посещаемости
+        console.log(student1.arrVisits);
+
+        // проверяем массив оценок
+        console.log(student1.arrMarks);
+
+
+        // проверяем что находится в объекте после всех операций
+        console.log(student1);
+        // как видим в объекте student1 нет ничего лишнего
+        // там только те свойства которые были заявлены в тех задании
+        // все методы находятся в прото студента 
+
+
+        console.log(`*******************`);
+        console.log(`создадим и проверим еще парочку студентов`);
+        console.log(`*******************`);
+
+        let student2 = new Student('William', 'Gates', 1955);
+        student2.getFullName();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.present();
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.mark(10);
+        student2.summary();
+
+        console.log(`*******************`);
+        console.log(`создадим и проверим еще парочку студентов`);
+        console.log(`*******************`);
+
+        let student3 = new Student('Вовочка', 'Безфамильный', 2000);
+        student3.getFullName();
+        student3.absent();
+        student3.absent();
+        student3.absent();
+        student3.absent();
+        student3.absent();
+        student3.absent();
+        student3.present();
+        student3.present();
+        student3.present();
+
+        student3.mark(8);
+        student3.mark(8);
+        student3.mark(8);
+        student3.mark(8);
+        student3.mark(5);
+        student3.mark(2);
+        student3.mark(5);
+        student3.mark(8);
+        student3.mark(7);
+        student3.mark(2);
+        student3.mark(5);
+        student3.summary();
+    </script>
+
+</body>
+
+</html>
