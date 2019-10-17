@@ -23,51 +23,6 @@
         Ах, да! Это не просто объект - вам нужно сделать так, чтоб в него нельзя было вносить изменения, чтоб никто не переписал случайно его методы)
 
         Если что забыл - пишите
-        Воронин, [16.10.19 10:04]
-        [Forwarded from Сергей]
-        Это объект у которого есть методы и свойство, где хранится список заметок
-
-        Воронин, [16.10.19 10:04]
-        [Forwarded from Сергей]
-        А заметки - да, объекты тоже
-
-        Воронин, [16.10.19 10:04]
-        [Forwarded from Воронин]
-        то есть список заметок, это массив с обьектами-заметками?
-
-
-
-                const user1 = {
-            name: 'Oleg',
-            surname: 'Petrov',
-            getFullName() {
-                //console.log(arguments);
-                return this.name + ' ' + this.surname;
-            }
-        }
-
-                const Student = function (name, surname, bday) {
-            this.name = name,
-                this.surname = surname,
-                this.bday = bday
-        };
-
-        Student.prototype.getFullName = function () {
-            return `${this.surname} ${this.name}`
-        }
-
-
-
-                let res = someArr.reduce((acum, elemen) => {
-            if (acum[elemen.date]) {
-                acum[elemen.date].push(elemen.message);
-            } else {
-                acum[elemen.date] = [];
-                acum[elemen.date].push(elemen.message);
-            }
-
-            return acum;
-        }, {});
         */
 
         const toDoList = {
