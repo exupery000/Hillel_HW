@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        ToDo list (данные)
+        Вам нужно создать список задач, который умеет:
+
+        добавлять новые задачи и проверять их уникальность. У каждой задачи есть статус, время создания и текст
+        удалять задачу, но с условием (тут передаете в качестве аргумента confirm)
+        редактировать задачу (тоже спрашиваете нужно ли сохранить изменения)
+        выводить общее количество задач, сколько выполнили и сколько осталось
+
+
+        Ах, да! Это не просто объект - вам нужно сделать так, чтоб в него нельзя было вносить изменения, чтоб никто не переписал случайно его методы)
+
+        Если что забыл - пишите
+        Воронин, [16.10.19 10:04]
+        [Forwarded from Сергей]
+        Это объект у которого есть методы и свойство, где хранится список заметок
+
+        Воронин, [16.10.19 10:04]
+        [Forwarded from Сергей]
+        А заметки - да, объекты тоже
+
+        Воронин, [16.10.19 10:04]
+        [Forwarded from Воронин]
+        то есть список заметок, это массив с обьектами-заметками?
+
+
+
+                const user1 = {
+            name: 'Oleg',
+            surname: 'Petrov',
+            getFullName() {
+                //console.log(arguments);
+                return this.name + ' ' + this.surname;
+            }
+        }
+
+                const Student = function (name, surname, bday) {
+            this.name = name,
+                this.surname = surname,
+                this.bday = bday
+        };
+
+        Student.prototype.getFullName = function () {
+            return `${this.surname} ${this.name}`
+        }
+
+
+
+                let res = someArr.reduce((acum, elemen) => {
+            if (acum[elemen.date]) {
+                acum[elemen.date].push(elemen.message);
+            } else {
+                acum[elemen.date] = [];
+                acum[elemen.date].push(elemen.message);
+            }
+
+            return acum;
+        }, {});
+        */
+
+        const toDoList = {
+            tasks: [],
+
+            newTask(text) {
+                let isNotUnique = false;
+                this.tasks.forEach(elem => {
+                    if (elem.text === text) {
+                        isNotUnique = true;
+                    }
+                });
+
+                if (isNotUnique) {
+                    console.log('Такая запись уже есть');
+                } else {
+                    this.tasks.push({
+                        status: false,
+                        time: new Date().getTime(),
+                        text: text
+                    });
+                }
+            },
+
+            deleteTask(text) {
+                let deletedIndex = -1;
+                this.tasks.forEach((elem, index) => {
+                    if (elem.text === text) {
+                        deletedIndex = index
+                    }
+                });
+
+                if (deletedIndex === -1) {
+                    console.log('Вы пытаетесь удалить несуществующую запись');
+                } else {
+                    let answer = confirm('Удалить запись?');
+                    if (answer) {
+                        this.tasks.splice(deletedIndex, 1)
+                    }
+                }
+            },
+
+            editTask(text, newText) {
+                let editedIndex = -1;
+                this.tasks.forEach((elem, index) => {
+                    if (elem.text === text) {
+                        editedIndex = index
+                    }
+                });
+
+                if (editedIndex === -1) {
+                    console.log('Вы пытаетесь редактировать несуществующую запись');
+                } else {
+                    let answer = confirm('Изменить запись?');
+                    if (answer) {
+                        this.tasks[editedIndex].text = newText;
+                    }
+                }
+            },
+
+            completeThisTask(text) {
+                let completeIndex = -1;
+                this.tasks.forEach((elem, index) => {
+                    if (elem.text === text) {
+                        completeIndex = index
+                    }
+                });
+
+                if (completeIndex === -1) {
+                    console.log('Вы пытаетесь выполнить несуществующую запись');
+                } else {
+                    this.tasks[completeIndex].status = true;
+                }
+
+
+            },
+
+            unCompleteThisTask(text) {
+                let completeIndex = -1;
+                this.tasks.forEach((elem, index) => {
+                    if (elem.text === text) {
+                        completeIndex = index
+                    }
+                });
+
+                if (completeIndex === -1) {
+                    console.log('Вы пытаетесь отменить выполнение несуществующей записи');
+                } else {
+                    this.tasks[completeIndex].status = false;
+                }
+
+
+            },
+
+            totalCompletedTasks() {
+                let result = this.tasks.reduce((acum, elem) => {
+                    if (elem.status === true) {
+                        acum++
+                    }
+                    return acum
+                }, 0);
+                return result;
+            },
+
+            totalneedToDoTasks() {
+                let result = this.tasks.reduce((acum, elem) => {
+                    if (elem.status === false) {
+                        acum++
+                    }
+                    return acum
+                }, 0);
+                return result;
+            },
+
+            totalInfo() {
+                let resArr = [];
+                resArr.push(['total', this.tasks.length]);
+                resArr.push(['completed', this.totalCompletedTasks()]);
+                resArr.push(['needToDo', this.totalneedToDoTasks()]);
+
+                return resArr;
+            },
+
+        };
+
+        Object.freeze(toDoList);
+        //Freeze: делает объект неизменным, что означает, что никакое изменение в разрешенное свойство не допускается, если только они не являются объектами.
+
+
+
+        // добавим 4 таска в наш список
+        toDoList.newTask('shoping');
+        toDoList.newTask('snooping');
+        toDoList.newTask('vanished');
+        toDoList.newTask('banished');
+
+        // попробуем добавить существующий таск
+        toDoList.newTask('snooping');
+
+        // удалим один таск
+        toDoList.deleteTask('shoping');
+
+        // попробуем удалить несуществующий таск
+        toDoList.deleteTask('shoping');
+        toDoList.deleteTask('unexisted tag');
+
+        // добавим новый таск два раза подряд
+        toDoList.newTask('drinking');
+        toDoList.newTask('drinking');
+
+        // изменим таск
+        toDoList.editTask('drinking', 'BLAME');
+
+        // изменим несуществующий таск
+        toDoList.editTask('drinking', 'BLAME');
+
+        // выполним таск
+        toDoList.completeThisTask('snooping');
+
+        // отменим выполнение
+        toDoList.unCompleteThisTask('snooping');
+
+        // выполним таск
+        toDoList.completeThisTask('snooping');
+
+        //Общая информация по списку
+        //вывел массивом
+        console.log(`общая информация по списку`);
+        console.log(toDoList.totalInfo());
+
+        //Общее число выполненных задач
+        console.log(`общее число выполненных задач ${toDoList.totalCompletedTasks()}`);
+
+        //Общее число невыполненных задач
+        console.log(`общее число невыполненных задач ${toDoList.totalneedToDoTasks()}`);
+
+        console.log(toDoList.tasks);
+
+
+
+        console.log(toDoList);
+        //попытаемся переписать свойство
+        toDoList.tasks = 'ge'
+        //попытаемся переписать свойство
+        toDoList.totalCompletedTasks = 0;
+        //убедимся что свойства и методы не изменены
+        console.log(toDoList);
+    </script>
+
+</body>
+
+</html>
