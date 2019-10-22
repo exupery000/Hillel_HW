@@ -28,7 +28,7 @@
         const toDoList = {
             tasks: [],
             counterObj: {
-                counter: 1
+                counter: 0
             },
 
             newTask(text) {
@@ -43,19 +43,17 @@
                     console.log('Такая запись уже есть');
                 } else {
                     this.tasks.push({
-                        UniqueID: this.counterObj.counter,
+                        UniqueID: ++this.counterObj.counter,
                         status: false,
                         time: new Date().getTime(),
                         text: text
                     });
-                    this.counterObj.counter++;
                 }
             },
 
             deleteTask(UniqueID) {
                 let deletedIndex = this.findAnIndex(UniqueID);
-
-                if (deletedIndex === -1) {
+                if (deletedIndex == -1) {
                     console.log('Вы пытаетесь удалить несуществующую запись');
                 } else {
                     let answer = confirm('Удалить запись?');
@@ -67,7 +65,6 @@
 
             editTask(UniqueID, newText) {
                 let editedIndex = this.findAnIndex(UniqueID);
-
                 if (editedIndex === -1) {
                     console.log('Вы пытаетесь редактировать несуществующую запись');
                 } else {
@@ -80,7 +77,6 @@
 
             completeThisTask(UniqueID) {
                 let completeIndex = this.findAnIndex(UniqueID);
-
                 if (completeIndex === -1) {
                     console.log('Вы пытаетесь выполнить несуществующую запись');
                 } else {
@@ -100,9 +96,7 @@
 
             findAnIndex(UniqueID) {
                 let resIndex = this.tasks.findIndex((element, index) => {
-                    if (element.UniqueID === UniqueID) {
-                        return index;
-                    };
+                    return element.UniqueID === UniqueID;
                 });
                 return resIndex;
             },
@@ -136,8 +130,6 @@
                 return resArr;
             },
         };
-
-
 
 
         Object.freeze(toDoList);
@@ -221,7 +213,7 @@
 
         // метод поиска индекса нужного элемента по ID
         console.log(`поиск элемента массива по ID`);
-        console.log(toDoList.findAnIndex(2));
+        console.log(toDoList.findAnIndex(5));
         console.log('***');
 
 
