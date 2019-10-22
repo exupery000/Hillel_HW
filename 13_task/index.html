@@ -31,7 +31,6 @@
                 counter: 1
             },
 
-
             newTask(text) {
                 let isNotUnique = false;
                 this.tasks.forEach(elem => {
@@ -50,9 +49,7 @@
                         text: text
                     });
                     this.counterObj.counter++;
-
                 }
-
             },
 
             deleteTask(UniqueID) {
@@ -99,36 +96,16 @@
                 } else {
                     this.tasks[completeIndex].status = false;
                 }
-
-
             },
 
             findAnIndex(UniqueID) {
-                let resIndex = -1;
-                this.tasks.findIndex((element, index) => {
+                let resIndex = this.tasks.findIndex((element, index) => {
                     if (element.UniqueID === UniqueID) {
-                        resIndex = index;
+                        return index;
                     };
                 });
-
                 return resIndex;
-
-
-
-
-
-
-
-
-                // this.tasks.forEach((elem, index) => {
-                //     if (elem.UniqueID === UniqueID) {
-                //         resIndex = index
-                //     }
-                // });
-                // return resIndex;
             },
-
-
 
             totalCompletedTasks() {
                 let result = this.tasks.reduce((acum, elem) => {
@@ -158,7 +135,6 @@
 
                 return resArr;
             },
-
         };
 
 
