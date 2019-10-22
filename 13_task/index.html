@@ -28,7 +28,7 @@
         const toDoList = {
             tasks: [],
             counterObj: {
-                counter: 0
+                counter: 1
             },
 
 
@@ -56,7 +56,7 @@
             },
 
             deleteTask(UniqueID) {
-                let deletedIndex = this.findIndex(UniqueID);
+                let deletedIndex = this.findAnIndex(UniqueID);
 
                 if (deletedIndex === -1) {
                     console.log('Вы пытаетесь удалить несуществующую запись');
@@ -69,7 +69,7 @@
             },
 
             editTask(UniqueID, newText) {
-                let editedIndex = this.findIndex(UniqueID);
+                let editedIndex = this.findAnIndex(UniqueID);
 
                 if (editedIndex === -1) {
                     console.log('Вы пытаетесь редактировать несуществующую запись');
@@ -82,7 +82,7 @@
             },
 
             completeThisTask(UniqueID) {
-                let completeIndex = this.findIndex(UniqueID);
+                let completeIndex = this.findAnIndex(UniqueID);
 
                 if (completeIndex === -1) {
                     console.log('Вы пытаетесь выполнить несуществующую запись');
@@ -92,7 +92,7 @@
             },
 
             unCompleteThisTask(UniqueID) {
-                let completeIndex = this.findIndex(UniqueID);
+                let completeIndex = this.findAnIndex(UniqueID);
 
                 if (completeIndex === -1) {
                     console.log('Вы пытаетесь отменить выполнение несуществующей записи');
@@ -103,14 +103,29 @@
 
             },
 
-            findIndex(UniqueID) {
+            findAnIndex(UniqueID) {
                 let resIndex = -1;
-                this.tasks.forEach((elem, index) => {
-                    if (elem.UniqueID === UniqueID) {
-                        resIndex = index
-                    }
+                this.tasks.findIndex((element, index) => {
+                    if (element.UniqueID === UniqueID) {
+                        resIndex = index;
+                    };
                 });
+
                 return resIndex;
+
+
+
+
+
+
+
+
+                // this.tasks.forEach((elem, index) => {
+                //     if (elem.UniqueID === UniqueID) {
+                //         resIndex = index
+                //     }
+                // });
+                // return resIndex;
             },
 
 
@@ -170,11 +185,11 @@
 
 
         // удалим один таск
-        toDoList.deleteTask(0);
+        toDoList.deleteTask(1);
 
 
         // попробуем удалить несуществующий таск
-        toDoList.deleteTask(0);
+        toDoList.deleteTask(1);
         toDoList.deleteTask(100);
         console.log('***');
 
@@ -192,25 +207,25 @@
 
         // изменим несуществующий таск
         toDoList.editTask(25, 'BLAME');
-        toDoList.editTask(0, 'BLAME');
+        toDoList.editTask(1, 'BLAME');
         console.log('***');
 
 
         // выполним таск
-        toDoList.completeThisTask(1);
+        toDoList.completeThisTask(2);
 
 
         // отменим выполнение
-        toDoList.unCompleteThisTask(1);
+        toDoList.unCompleteThisTask(2);
 
 
         // выполним таск
-        toDoList.completeThisTask(1);
+        toDoList.completeThisTask(2);
 
 
         // выполним несуществующий таск
         toDoList.completeThisTask(30);
-        toDoList.unCompleteThisTask(0);
+        toDoList.unCompleteThisTask(1);
         console.log('***');
 
 
@@ -230,7 +245,7 @@
 
         // метод поиска индекса нужного элемента по ID
         console.log(`поиск элемента массива по ID`);
-        console.log(toDoList.findIndex(2));
+        console.log(toDoList.findAnIndex(2));
         console.log('***');
 
 
@@ -241,8 +256,6 @@
         toDoList.totalCompletedTasks = 0;
         //убедимся что свойства и методы не изменены
         console.log(toDoList);
-
-
     </script>
 
 </body>
