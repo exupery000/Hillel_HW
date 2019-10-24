@@ -65,8 +65,18 @@
 
             editTask(UniqueID, newText) {
                 let editedIndex = this.findAnIndex(UniqueID);
+                let isNotUnique = false;
+                this.tasks.forEach(elem => {
+                    if (elem.text === newText) {
+                        isNotUnique = true;
+                    }
+                });
+
+
                 if (editedIndex === -1) {
                     console.log('Вы пытаетесь редактировать несуществующую запись');
+                } else if (isNotUnique) {
+                    console.log('Такая запись уже есть');
                 } else {
                     let answer = confirm('Изменить запись?');
                     if (answer) {
@@ -171,6 +181,13 @@
 
         // изменим таск
         toDoList.editTask(4, 'BLAME');
+
+
+        // изменим таск
+        // попытаемся заменить на такой же текст
+        toDoList.editTask(4, 'BLAME');
+        toDoList.newTask('drinking');
+        console.log('***');
 
 
         // изменим несуществующий таск
