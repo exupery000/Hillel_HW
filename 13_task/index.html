@@ -26,23 +26,17 @@
 
         const toDoList = {
             tasks: [],
-            counterObj: {
-                counter: 0
-            },
 
             newTask(text) {
-                let isNotUnique = false;
-                this.tasks.forEach(elem => {
-                    if (elem.text === text) {
-                        isNotUnique = true;
-                    }
+                let isNotUnique = this.tasks.some(arr => {
+                    return arr['text'] === text;
                 });
 
                 if (isNotUnique) {
                     console.log('Такая запись уже есть');
                 } else {
                     this.tasks.push({
-                        UniqueID: ++this.counterObj.counter,
+                        UniqueID: this.generateUniqueID(),
                         status: false,
                         time: new Date().getTime(),
                         text: text
@@ -64,13 +58,10 @@
 
             editTask(UniqueID, newText) {
                 let editedIndex = this.findAnIndex(UniqueID);
-                let isNotUnique = false;
-                this.tasks.forEach(elem => {
-                    if (elem.text === newText) {
-                        isNotUnique = true;
-                    }
-                });
 
+                let isNotUnique = this.tasks.some(arr => {
+                    return arr['text'] === newText;
+                });
 
                 if (editedIndex === -1) {
                     console.log('Вы пытаетесь редактировать несуществующую запись');
@@ -110,6 +101,12 @@
                 return resIndex;
             },
 
+            generateUniqueID() {
+                let halfOneID = Math.random().toString(36).substring(2, 7);
+                let halfTwoID = Math.random().toString(36).substring(2, 7);
+                return halfOneID + halfTwoID;
+            },
+
             totalCompletedTasks() {
                 let result = this.tasks.reduce((acum, elem) => {
                     if (elem.status === true) {
@@ -145,8 +142,6 @@
         //Freeze: делает объект неизменным, что означает, что никакое 
         //изменение в разрешенное свойство не допускается, 
         //если только они не являются объектами
-        //counterObj: {counter: 0} это объект
-        //заморозка на него (как на внуковый элемент) не распространяется
 
 
         // добавим 4 таска в наш список
@@ -157,12 +152,13 @@
 
 
         // попробуем добавить существующий таск
+        toDoList.newTask('vanished');
         toDoList.newTask('snooping');
         console.log('***');
 
 
         // удалим один таск
-        toDoList.deleteTask(1);
+        // только через ID и берем с консоли
 
 
         // попробуем удалить несуществующий таск
@@ -171,22 +167,15 @@
         console.log('***');
 
 
-        // добавим новый таск три раза подряд, 4-й лог
-        toDoList.newTask('drinking');
-        toDoList.newTask('drinking');
-        toDoList.newTask('drinking');
-        console.log('***');
+        // // изменим таск
+        // только через ID и берем с консоли
 
 
-        // изменим таск
-        toDoList.editTask(4, 'BLAME');
-
-
-        // изменим таск
-        // попытаемся заменить на такой же текст
-        toDoList.editTask(4, 'BLAME');
-        toDoList.newTask('drinking');
-        console.log('***');
+        // // изменим таск
+        // // попытаемся заменить на такой же текст
+        // только через ID и берем с консоли
+        // только через ID и берем с консоли
+        // только через ID и берем с консоли
 
 
         // изменим несуществующий таск
@@ -196,21 +185,19 @@
 
 
         // выполним таск
-        toDoList.completeThisTask(2);
+        // только через ID и берем с консоли
 
 
-        // отменим выполнение
-        toDoList.unCompleteThisTask(2);
+        // // отменим выполнение
+        // только через ID и берем с консоли
 
 
-        // выполним таск
-        toDoList.completeThisTask(2);
+        // // выполним таск
+        // только через ID и берем с консоли
 
 
-        // выполним несуществующий таск
-        toDoList.completeThisTask(30);
-        toDoList.unCompleteThisTask(1);
-        console.log('***');
+        // // выполним несуществующий таск
+        // только через ID и берем с консоли
 
 
         //Общая информация по списку
@@ -225,12 +212,6 @@
 
         //Общее число невыполненных задач
         console.log(`общее число невыполненных задач ${toDoList.totalneedToDoTasks()}`);
-
-
-        // метод поиска индекса нужного элемента по ID
-        console.log(`поиск элемента массива по ID`);
-        console.log(toDoList.findAnIndex(5));
-        console.log('***');
 
 
         console.log(toDoList.tasks);
