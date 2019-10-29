@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*Вам нужно переписать вашу функцию-конструктор для создания студентов на классы
+
+        class MyClass {
+            // методы класса
+            constructor() { ... }
+            method1() { ... }
+            method2() { ... }
+            method3() { ... }
+            ...
+        }
+         */
+
+        class Student {
+            constructor(name, surname, bday) {
+                this.name = name,
+                    this.surname = surname,
+                    this.bday = bday,
+                    this.arrVisits = new Array(30),
+                    this.arrMarks = new Array(30)
+            }
+
+            getFullAge() {
+                const currentDate = new Date;
+                let fullAge = currentDate.getFullYear() - this.bday;
+                return fullAge;
+            }
+
+            getFullAge() {
+                const currentDate = new Date;
+                let fullAge = currentDate.getFullYear() - this.bday;
+                return fullAge;
+            };
+
+            getFullName() {
+                let fullName = `${this.surname} ${this.name}`;
+                return fullName;
+            }
+
+            present() {
+                function isUndefined(elem) {
+                    return elem === undefined;
+                }
+
+                let index = this.arrVisits.findIndex(isUndefined);
+
+                if (index >= 0) {
+                    this.arrVisits[index] = true;
+                } else {
+                    console.log(`Занятия окончены`);
+                }
+            }
+
+            absent() {
+                function isUndefined(elem) {
+                    return elem === undefined;
+                }
+
+                let index = this.arrVisits.findIndex(isUndefined);
+
+                if (index >= 0) {
+                    this.arrVisits[index] = false;
+                } else {
+                    console.log(`Занятия окончены`);
+                }
+            }
+
+            mark(markValue) {
+                function isUndefined(elem) {
+                    return elem === undefined;
+                }
+
+                let index = this.arrMarks.findIndex(isUndefined);
+
+                if (index >= 0) {
+                    this.arrMarks[index] = markValue;
+                } else {
+                    console.log(`Все задания выполнены`);
+                }
+            }
+
+            averagePresents() {
+                let visitsCounter = 0;
+                let sumOfVisits = 0;
+                sumOfVisits = this.arrVisits.reduce((acumulator, elem) => {
+                    if (typeof (elem) === 'boolean') {
+                        visitsCounter++;
+                        acumulator += Number(elem);
+                    }
+                    return acumulator;
+                }, 0);
+
+                let averagePresents = sumOfVisits / visitsCounter;
+                return averagePresents;
+            }
+
+            averageMark() {
+                let markCounter = 0;
+                let sumOfmarks = 0;
+                sumOfmarks = this.arrMarks.reduce((acumulator, elem) => {
+                    if (typeof (elem) === 'number') {
+                        markCounter++;
+                        acumulator += elem;
+                    }
+                    return acumulator;
+                }, 0);
+
+                let averageMark = sumOfmarks / markCounter;
+                return averageMark;
+            }
+
+            summary() {
+                if (this.averagePresents() > 0.9 && this.averageMark() > 9) {
+                    let result = `Ути какой молодчинка!`;
+                    return result;
+
+                } else if (this.averagePresents() > 0.9 || this.averageMark() > 9) {
+                    let result = `Норм, но можно лучше`;
+                    return result;
+                } else {
+                    let result = `Редиска!`;
+                    return result;
+                }
+            }
+        };
+
+
+
+
+
+
+        let student1 = new Student('Ernesto', 'Che Guevara', 1928);
+
+        console.log('***');
+
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+        student1.present();
+
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        student1.absent();
+        //после этого момента занятия окончены
+        //отмечать присутствие больше нельзя
+        student1.present();
+
+
+        // проверяем на оценки
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(10);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        student1.mark(0);
+        // после этого момента все задания выполнены
+        // ставить оценки некуда
+        student1.mark(10);
+
+
+        // получаем возраст
+        console.log(`Полный возраст ${student1.getFullAge()}`);
+
+
+        // получаем полное имя
+        console.log(`Полное имя ${student1.getFullName()}`);
+
+
+        // проверяем по отдельности
+        // метод определния средней посещаемости
+        // метод определния средней оценки
+        console.log(`средняя посещаемость ${student1.averagePresents()}`);
+        console.log(`средний бал ${student1.averageMark()}`);
+
+
+        // проверяем основной метод для вычисления успеваемости
+        console.log(`Вывод по общей успеваемости ${student1.summary()}`);
+    </script>
+</body>
+
+</html>
