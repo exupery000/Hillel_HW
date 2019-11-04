@@ -43,11 +43,7 @@
             }
 
             present() {
-                function isUndefined(elem) {
-                    return elem === undefined;
-                }
-
-                let index = this.arrVisits.findIndex(isUndefined);
+                let index = this.arrVisits.findIndex(this.isUndefined);
 
                 if (index >= 0) {
                     this.arrVisits[index] = true;
@@ -57,11 +53,7 @@
             }
 
             absent() {
-                function isUndefined(elem) {
-                    return elem === undefined;
-                }
-
-                let index = this.arrVisits.findIndex(isUndefined);
+                let index = this.arrVisits.findIndex(this.isUndefined);
 
                 if (index >= 0) {
                     this.arrVisits[index] = false;
@@ -71,11 +63,7 @@
             }
 
             mark(markValue) {
-                function isUndefined(elem) {
-                    return elem === undefined;
-                }
-
-                let index = this.arrMarks.findIndex(isUndefined);
+                let index = this.arrMarks.findIndex(this.isUndefined);
 
                 if (index >= 0) {
                     this.arrMarks[index] = markValue;
@@ -126,7 +114,11 @@
                     let result = `Редиска!`;
                     return result;
                 }
-            }
+            };
+
+            isUndefined(elem) {
+                    return elem === undefined;
+                };
         };
 
 
