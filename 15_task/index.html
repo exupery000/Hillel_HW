@@ -1,12 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <p>
+        Введите колличество элементов списка
+        <input type="text" id="list-num" />
+    </p>
+    <button class="make-list" onclick="makeList()">Создать список</button>
+    <button class="reset" disabled onclick="reset()">Удалить список</button>
+    <ul id="list"></ul>
+
+    <!-- <ul id="list">
+        <li>item - 1</li>
+        <li>item - 8</li>
+        <li>item - 4</li>
+        <li>item - 3</li>
+        <li>item - 7</li>
+        <li>item - 6</li>
+        <li>item - 5</li>
+        <li>item - 2</li>
+    </ul> -->
+
+    <button class="sort-list" disabled onclick="sortList()">Отсортировать</button>
+
+    <script>
+        const $makeButton = document.querySelector('.make-list');
+        const $sortButton = document.querySelector('.sort-list');
+        const $resetButton = document.querySelector('.reset');
+
+        function makeList() {
+            //получим колличество элементов
+            let quantity = document.getElementById('list-num').value;
+
+            //получим доступ к созданию элементов списка
+            let create = document.getElementById('list');
+
+            //создаем массив рандомных элементов
+            //элементы уникальные
+            //максимальный элемент не может быть 
+            //больше общего колличества
+            let numArr = [];
+            while (numArr.length < quantity) {
+                let number = Math.floor(Math.random() * quantity) + 1;
+                if (!numArr.includes(number) && number <= quantity) {
+                    numArr.push(number);
+                    //console.log(number);
+                };
+
+            };
+
+            //console.log(numArr);
+            //массив с уникальными элементами получен
+            //пройдемся по нему forEach 
+            //запишем каждый элемент как элемент списка
+            numArr.forEach(elem => {
+                create.innerHTML += `<li>item - ${elem}</li>`;
+            });
+            console.log(numArr);
+
+            //получим доступ к кнопке СОЗДАНИЯ
+            //и назначим ей атрибут НЕАКТИВНОСТИ после использования
+            $makeButton.setAttribute('disabled', true);
+
+            //получим доступ к кнопке СОРТИРОВКИ
+            //и назначим ей атрибут АКТИВНОСТИ после использования
+            $sortButton.removeAttribute('disabled');
+
+            //получим доступ к кнопке СБРОСА
+            //и назначим ей атрибут АКТИВНОСТИ после использования
+            $resetButton.removeAttribute('disabled');
+        };
+
+        function reset() {
+            //получим доступ к созданию элементов списка и все удалим
+            const $deleteList = document.getElementById('list');
+            $deleteList.innerHTML = '';
+
+            //получим доступ к кнопке СОЗДАНИЯ
+            //и назначим ей атрибут АКТИВНОСТИ после использования
+            $makeButton.removeAttribute('disabled');
+
+            //получим доступ к кнопке СОРТИРОВКИ
+            //и назначим ей атрибут НЕАКТИВНОСТИ после использования
+            $sortButton.setAttribute('disabled', true);
+
+            //получим доступ к кнопке СБРОСА
+            //и назначим ей атрибут НЕАКТИВНОСТИ после использования
+            $resetButton.setAttribute('disabled', true);
+        };
+
+        function sortList() {
+
+            let liArr = document.querySelectorAll('li');
+            //console.log(liArr);
+
+            for (let i = 0; i < liArr.length - 1; i++) {
+
+                for (let j = 0; j < liArr.length - 1 - i; j++) {
+                    if (findElem((j + 1), liArr) < findElem((j), liArr)) {
+                        let temp = liArr[j + 1].innerHTML;
+                        liArr[j + 1].innerHTML = liArr[j].innerHTML;
+                        liArr[j].innerHTML = temp;
+                    };
+                };
+            };
+
+            function findElem(index, arr) {
+                let res = Number(arr[index].innerText.substring(7));
+                return res;
+            };
+
+            $sortButton.setAttribute('disabled', true);
+        };
+    </script>
 </body>
+
 </html>
