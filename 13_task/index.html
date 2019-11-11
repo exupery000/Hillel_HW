@@ -45,7 +45,9 @@
             },
 
             deleteTask(UniqueID, someFunc) {
-                let deletedIndex = this.findAnIndex(UniqueID);
+                let deletedIndex = this.tasks.findIndex(element => {
+                    return element.UniqueID === UniqueID;
+                });
                 if (deletedIndex == -1) {
                     console.log('Вы пытаетесь удалить несуществующую запись');
                 } else {
@@ -56,7 +58,9 @@
             },
 
             editTask(UniqueID, newText, someFunc) {
-                let editedIndex = this.findAnIndex(UniqueID);
+                let editedIndex = this.tasks.findIndex(element => {
+                    return element.UniqueID === UniqueID;
+                });
 
                 let isNotUnique = this.tasks.some(arr => {
                     return arr['text'] === newText;
@@ -74,7 +78,9 @@
             },
 
             completeThisTask(UniqueID) {
-                let completeIndex = this.findAnIndex(UniqueID);
+                let completeIndex = this.tasks.findIndex(element => {
+                    return element.UniqueID === UniqueID;
+                });
                 if (completeIndex === -1) {
                     console.log('Вы пытаетесь выполнить несуществующую запись');
                 } else {
@@ -83,20 +89,15 @@
             },
 
             unCompleteThisTask(UniqueID) {
-                let completeIndex = this.findAnIndex(UniqueID);
-
-                if (completeIndex === -1) {
-                    console.log('Вы пытаетесь отменить выполнение несуществующей записи');
-                } else {
-                    this.tasks[completeIndex].status = false;
-                }
-            },
-
-            findAnIndex(UniqueID) {
-                let resIndex = this.tasks.findIndex((element, index) => {
+                let unCompleteIndex = this.tasks.findIndex(element => {
                     return element.UniqueID === UniqueID;
                 });
-                return resIndex;
+
+                if (unCompleteIndex === -1) {
+                    console.log('Вы пытаетесь отменить выполнение несуществующей записи');
+                } else {
+                    this.tasks[unCompleteIndex].status = false;
+                }
             },
 
             generateUniqueID() {
