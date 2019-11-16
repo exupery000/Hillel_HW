@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgba(156, 32, 32, 0.3);
+            font-size: 50px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5px;
+
+        }
+
+
+        .box {
+            display: flex;
+            flex-direction: column;
+
+            justify-content: space-between;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .noteInput {
+            width: 400px;
+            height: 45px;
+            margin-right: 20px;
+            font-size: 18px;
+            padding-left: 15px;
+            padding-right: 15px;
+
+        }
+
+        .addNote,
+        .toggleDone {
+            height: 45px;
+            font-size: 18px;
+        }
+
+        .noteList {
+            width: 630px;
+            margin-top: 20px;
+            margin-bottom: 0;
+            list-style: none;
+        }
+
+        .noteList.hideDone .done {
+            display: none;
+        }
+
+        .noteItem {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .options {
+            display: flex;
+            width: 100px;
+            justify-content: space-between;
+
+        }
+
+        .noteItem.done {
+            background: lightgray;
+        }
+
+        .noteItem.done span {
+            text-decoration: line-through;
+        }
+
+
+        .noteItem span {
+            flex-grow: 1;
+            margin-right: 25px;
+        }
+
+        .noteItem div {
+            display: flex;
+            align-items: center;
+        }
+
+
+
+        form {
+            display: flex;
+            flex-direction: row;
+
+            justify-content: flex-start;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: rgb(112, 111, 111);
+            opacity: 0.6;
+            /* Firefox */
+        }
+    </style>
+
+    <section>
+        <div class="container">
+            <h1>todos</h1>
+            <div class="box">
+                <form>
+                    <input type="text" class="noteInput" placeholder="what should be done?">
+                    <button class="addNote">Add new note</button>
+                    <button type="button" class="toggleDone">Hide done</button>
+                </form>
+                <ul class="noteList">
+
+                    <li class="noteItem"><span>1</span>
+                        <div class="options">
+                            <input type="checkbox">
+                            <button class="editBtn">Edit</button>
+                            <button class="deleteBtn">Delete</button>
+                        </div>
+                    </li>
+                    <li class="noteItem"><span>2</span>
+                        <div class="options">
+                            <input type="checkbox">
+                            <button class="editBtn">Edit</button>
+                            <button class="deleteBtn">Delete</button>
+                        </div>
+                    </li>
+                    <li class="noteItem"><span>3</span>
+                        <div class="options">
+                            <input type="checkbox">
+                            <button class="editBtn">Edit</button>
+                            <button class="deleteBtn">Delete</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        /*ToDo list
+        Знаете, что все новое - это хорошо забытое старое? Вам нужно создать список задач, который имеет UI и умеет:
+        добавлять новые задачи по клику на кнопку add, текст которых написан в input и проверять их уникальность. У каждой задачи есть статус и текст. Инпут очищается после добавления.
+        удалять задачу по нажатию на кнопку Remove (на каждой задаче своя) и спрашивать уверенны ли вы
+        по нажатию на кнопку Done - помечать, как сделанную.
+        Опционально:
+        редактировать задачу (тоже спрашиваете нужно ли сохранить изменения)*/
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            const input = e.target.children[0];
+
+            let arrAllSpan = Array.from(document.querySelectorAll('span'));
+            let index = arrAllSpan.findIndex(e => e.innerText === input.value);
+            if (index >= 0) {
+                errorSound();
+                alert('Такая запись уже есть!');
+                return
+            };
+
+            const li = document.createElement('li');
+            li.classList.add('noteItem');
+
+            const span = document.createElement('span');
+            span.innerText = input.value;
+
+            li.append(span);
+
+            const div = document.createElement('div');
+            div.classList.add('options');
+
+            const checkbox = document.createElement('input');
+            checkbox.setAttribute('type', 'checkbox');
+
+            const button = document.createElement('button');
+            button.innerText = 'Delete';
+            button.classList.add('deleteBtn');
+
+            const editBtn = document.createElement('button');
+            editBtn.innerText = 'Edit';
+            editBtn.classList.add('editBtn');
+
+            div.append(checkbox);
+            div.append(editBtn);
+            div.append(button);
+            li.append(div);
+
+            const list = document.querySelector('.noteList');
+
+            list.append(li);
+            li.append(div);
+
+            input.value = '';
+            addNoteSound();
+        });
+
+
+        //doubleClickEditing listener
+        const edit = document.querySelector('.noteList');
+        edit.addEventListener('dblclick', e => {
+            const targetEl = e.target;
+            if (targetEl.nodeName === 'SPAN') {
+                result = prompt('редактирование записи', targetEl.innerText);
+                if (result === null) {
+                    return
+                } else if (result === targetEl.innerText) {
+                    errorSound();
+                    alert('Исходная запись равняется новой!');
+                    return
+                } else {
+                    let arrAllSpan = Array.from(document.querySelectorAll('span'));
+                    let index = arrAllSpan.findIndex(e => e.innerText === result);
+                    if (index === -1) {
+                        let confirmEditing = confirm(
+                            `Вы действительно хотите изменить запись '${targetEl.innerText}'`);
+                        if (confirmEditing) {
+                            targetEl.innerText = result;
+                        }
+                    } else {
+                        errorSound();
+                        alert('Такая запись уже есть!');
+                        return
+                    }
+                }
+            }
+        });
+
+
+        const list = document.querySelector('.noteList');
+        list.addEventListener('click', e => {
+
+            //doneCheckBox listener
+            const targetEl = e.target;
+            if (targetEl.nodeName === 'INPUT') {
+                const li = targetEl.parentNode.parentNode;
+                li.classList.toggle('done');
+            }
+
+            //deleteBtn listener
+            else if (targetEl.className === 'deleteBtn') {
+                const text = targetEl.parentNode.parentNode.children[0].innerText
+                const li = targetEl.parentNode.parentNode;
+                let confirmDelete = confirm(`Вы действительно хотите удалить запись '${text}'`);
+                if (confirmDelete) {
+                    li.remove();
+                    deleteNoteSound();
+                }
+            }
+
+            //editBtn listener
+            else if (targetEl.className === 'editBtn') {
+                let task = targetEl.parentNode.parentNode.children[0];
+                if (task.nodeName === 'SPAN') {
+                    result = prompt('Редактирование записи', task.innerText);
+                    if (result === null) {
+                        return
+                    } else if (result === task.innerText) {
+                        errorSound();
+                        alert('Исходная запись равняется новой!');
+                        return
+                    } else {
+
+                        let arrAllSpan = Array.from(document.querySelectorAll('span'));
+                        let index = arrAllSpan.findIndex(e => e.innerText === result);
+                        if (index === -1) {
+                            let confirmEditing = confirm(
+                                `Вы действительно хотите изменить запись '${task.innerText}'`);
+                            if (confirmEditing) {
+                                task.innerText = result;
+                            }
+                        } else {
+                            errorSound();
+                            alert('Такая запись уже есть!');
+                            return
+                        }
+                    }
+                }
+            }
+        });
+
+
+        const hideButton = document.querySelector('.toggleDone');
+        hideButton.addEventListener('click', e => {
+            if (e.target.innerText === 'Hide done') {
+                e.target.innerText = 'Show done';
+            } else if (e.target.innerText === 'Show done') {
+                e.target.innerText = 'Hide done';
+            };
+
+            const list = document.querySelector('.noteList');
+            list.classList.toggle('hideDone');
+        });
+
+
+        //soundEditing
+        function addNoteSound() {
+            var audio = new Audio();
+            audio.src = 'https://soundslibmp3.ru/sounds/1517301916_164.wav';
+            audio.autoplay = true;
+        };
+
+        function deleteNoteSound() {
+            var audio = new Audio();
+            audio.src = 'https://wav-library.net/sounds/0-0-1-4668-20';
+            audio.autoplay = true;
+        };
+
+        function errorSound() {
+            var audio = new Audio();
+            audio.src = 'https://soundslibmp3.ru/sounds/1516737932_1.wav';
+            audio.autoplay = true;
+        };
+    </script>
+
+
+
+
+</body>
+
+</html>
