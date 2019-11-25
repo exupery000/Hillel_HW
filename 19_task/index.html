@@ -50,6 +50,8 @@
         const mainSelect = document.querySelector('select');
         const form = document.querySelector('form');
 
+        const curentCurencyInfo = [];
+
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
         xhr.send();
@@ -59,7 +61,7 @@
                 console.log(mainData);
                 mainData.forEach(elem => {
                     const newOption = document.createElement('option');
-                    newOption.value = [elem.rate];
+                    newOption.value = elem.rate;
                     newOption.text = `${elem.txt}, ${elem.cc}`;
                     mainSelect.append(newOption);
                 });
