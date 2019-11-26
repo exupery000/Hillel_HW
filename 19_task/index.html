@@ -39,7 +39,7 @@
         <select>
             <option disabled selected>Chose a currency</option>
         </select>
-        <input type="submit" value="Convert">
+        <input disabled class="btn" type="submit" value="Convert">
     </form>
 
     <p class="out"></p>
@@ -49,8 +49,9 @@
         const mainOut = document.querySelector('.out');
         const mainSelect = document.querySelector('select');
         const form = document.querySelector('form');
+        const submit = document.querySelector('.btn');
+        console.log(submit);
 
-        const curentCurencyInfo = [];
 
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'https://old.bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json');
@@ -59,6 +60,7 @@
             if (xhr.status === 200) {
                 const mainData = JSON.parse(xhr.responseText);
                 console.log(mainData);
+                submit.toggleAttribute('disabled', false);
                 mainData.forEach(elem => {
                     const newOption = document.createElement('option');
                     newOption.value = elem.rate;
