@@ -326,10 +326,59 @@
         };
 
 
+
+        // OPTIONAL
+        //doubleClickEditing listener
+        const edit = document.querySelector('.noteList');
+        edit.addEventListener('dblclick', e => {
+            const targetEl = e.target;
+            console.log(targetEl);
+            
+
+            if (targetEl.nodeName === 'SPAN') {
+                targetEl.innerHTML =
+                    `<input class="inputClass" type="text" size="35" value="${targetEl.innerText}">`;
+
+                document.querySelector('.inputClass').focus();
+                document.querySelector('.inputClass').select();
+
+
+
+
+
+
+
+                // result = prompt('редактирование записи', targetEl.innerText);
+
+
+
+
+                if (result === null) {
+                    return
+                } else if (result === targetEl.innerText) {
+                    errorSound();
+                    alert('Исходная запись равняется новой!');
+                    return
+                } else {
+                    let arrAllSpan = Array.from(document.querySelectorAll('span'));
+                    let index = arrAllSpan.findIndex(e => e.innerText === result);
+                    if (index === -1) {
+                        let confirmEditing = confirm(
+                            `Вы действительно хотите изменить запись '${targetEl.innerText}'`);
+                        if (confirmEditing) {
+                            targetEl.innerText = result;
+                        }
+                    } else {
+                        errorSound();
+                        alert('Такая запись уже есть!');
+                        return
+                    }
+                }
+            }
+        });
+
+
     </script>
-
-
-
 
 </body>
 
